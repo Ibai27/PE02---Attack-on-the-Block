@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public GameObject jugador;          // Referencia al jugador principal
     public MovimientoEnemigo[] enemigos; // Todos los enemigos iniciales
     public MovimientoJugador Pjugador; // Asignar en el Inspector
+    public Cronometro cronometro;          // Referencia al cronómetro
 
 
     private bool juegoTerminado = false;
@@ -15,6 +16,12 @@ public class GameManager : MonoBehaviour
     {
         if (!juegoTerminado)
         {
+            // Parar cronómetro
+            cronometro.PararCronometro();
+
+            // Guardar récord aquí
+            cronometro.GuardarRecord();
+
             juegoTerminado = true;
 
             // Mostrar panel
@@ -40,8 +47,13 @@ public class GameManager : MonoBehaviour
     // Botón Reiniciar
     public void ReiniciarJuego()
     {
+        Debug.Log("Reiniciando juego...");
+        // Guardar récord también antes de reiniciar
+        cronometro.GuardarRecord();
+
         // Restaurar el tiempo antes de recargar
         Time.timeScale = 1f;
+    
 
         // Cargar el panel
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -50,13 +62,21 @@ public class GameManager : MonoBehaviour
         if (jugador != null)
             Pjugador.ResetearPosicion();
 
+        // Reiniciar cronómetro
+        cronometro.ReiniciarCronometro();
+
+
         juegoTerminado = false;
     }
 
     // Botón Salir
     public void SalirJuego()
     {
+        
         Debug.Log("Salir del juego...");
+        
+        // Guardar récord también al salir
+        cronometro.GuardarRecord();
         Application.Quit();
 
     #if UNITY_EDITOR
