@@ -66,5 +66,5 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "PE01 - Attack of the block.sln"
+    "dotnet.defaultSolution": "PE02 - Attack of the block.sln"
 }
