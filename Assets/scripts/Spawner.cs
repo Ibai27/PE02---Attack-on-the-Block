@@ -15,6 +15,9 @@ public class SpawnerEnemigos : MonoBehaviour
     private float ancho;
     private float alto;
 
+    // Guardar la posición inicial del prefab
+    private Vector3 posicionInicialPrefab;
+
     void Start()
     {
         // Calcular los límites según la cámara ortográfica
@@ -22,11 +25,15 @@ public class SpawnerEnemigos : MonoBehaviour
         alto = camara.orthographicSize;
         ancho = alto * camara.aspect;
 
+        // Guardar posición inicial del prefab
+        if (prefabEnemigo != null)
+            posicionInicialPrefab = prefabEnemigo.transform.position;
+
         // Inicia la corutina para spawnear enemigos
         StartCoroutine(SpawnEnemigos());
     }
 
-    private System.Collections.IEnumerator SpawnEnemigos()
+   private System.Collections.IEnumerator SpawnEnemigos()
     {
         while (true)
         {
@@ -50,5 +57,18 @@ public class SpawnerEnemigos : MonoBehaviour
                 Debug.Log("Spawn de un nuevo enemigo!");
             }
         }
+    }
+
+
+       public void InstanciarEnemigoInicial()
+    {
+        Instantiate(prefabEnemigo, posicionInicialPrefab, Quaternion.identity);
+    }
+
+
+    // Método público para obtener la posición inicial del prefab
+    public Vector3 ObtenerPosicionInicial()
+    {
+        return posicionInicialPrefab;
     }
 }
