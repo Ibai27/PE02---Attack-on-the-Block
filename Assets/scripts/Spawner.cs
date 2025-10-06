@@ -33,9 +33,9 @@ public class SpawnerEnemigos : MonoBehaviour
         StartCoroutine(SpawnEnemigos());
     }
 
-   private System.Collections.IEnumerator SpawnEnemigos()
+    private System.Collections.IEnumerator SpawnEnemigos()
     {
-        while (true)
+        while (GameObject.FindGameObjectsWithTag("Enemigo").Length < maxEnemigos)
         {
             // Espera el tiempo definido
             yield return new WaitForSeconds(tiempoEntreSpawns);
@@ -43,24 +43,22 @@ public class SpawnerEnemigos : MonoBehaviour
             // Contar enemigos actuales
             int enemigosActuales = GameObject.FindGameObjectsWithTag("Enemigo").Length;
 
-            if (enemigosActuales < maxEnemigos)
-            {
-                // Genera posición aleatoria dentro del área visible
-                Vector3 posicionSpawn = new Vector3(
-                    Random.Range(-ancho + 0.5f, ancho - 0.5f),
-                    Random.Range(-alto + 0.5f, alto - 0.5f),
-                    0f
-                );
+            // Genera posición aleatoria dentro del área visible
+            Vector3 posicionSpawn = new Vector3(
+                Random.Range(-ancho + 0.5f, ancho - 0.5f),
+                Random.Range(-alto + 0.5f, alto - 0.5f),
+                0f
+            );
 
-                // Instanciar el enemigo
-                Instantiate(prefabEnemigo, posicionSpawn, Quaternion.identity);
-                Debug.Log("Spawn de un nuevo enemigo!");
-            }
+            // Instanciar el enemigo
+            Instantiate(prefabEnemigo, posicionSpawn, Quaternion.identity);
+            Debug.Log("Spawn de un nuevo enemigo!");
+            
         }
     }
 
 
-       public void InstanciarEnemigoInicial()
+    public void InstanciarEnemigoInicial()
     {
         Instantiate(prefabEnemigo, posicionInicialPrefab, Quaternion.identity);
     }
