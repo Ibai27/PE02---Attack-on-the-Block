@@ -17,7 +17,7 @@ public class PowerUpInvencible : MonoBehaviour
             }
 
             // Avisar al Spawner para mostrar mensaje
-            SpawnerPowerUp spawner = FindObjectOfType<SpawnerPowerUp>();
+            SpawnerPowerUp spawner = Object.FindFirstObjectByType<SpawnerPowerUp>();
             if (spawner != null)
                 spawner.PowerUpRecogido(nombrePowerUp);
 
